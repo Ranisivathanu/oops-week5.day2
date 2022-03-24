@@ -15,7 +15,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Erailset {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		WebDriverManager.chromedriver().setup();
 		ChromeDriver driver=new ChromeDriver();
 		driver.get("https://erail.in/");
@@ -29,7 +29,10 @@ public class Erailset {
 	    WebElement tostation = driver.findElement(By.id("txtStationTo"));
 	    tostation.clear();
 	    tostation.sendKeys("MS",Keys.TAB);
-	    driver.findElement(By.xpath("//input[@id='buttonFromTo']")).click();
+	    driver.findElement(By.xpath("//label[text()='Sort on Date']")).click();
+	    driver.findElement(By.id("buttonFromTo")).click();
+	    Thread.sleep(1000);
+	    
 	  //store the train name in list
 	    
 	    List<String> name=new ArrayList<String>();
