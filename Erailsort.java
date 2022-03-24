@@ -14,13 +14,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Erailsort {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		WebDriverManager.chromedriver().setup();
 		ChromeDriver driver=new ChromeDriver();
 		driver.get("https://erail.in/");
 		driver.manage().window().maximize();
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));	
-	    
+	    	
 	    WebElement fromstation = driver.findElement(By.id("txtStationFrom"));
 	    fromstation.clear();
 	    fromstation.sendKeys("MDU",Keys.TAB);
@@ -28,16 +28,9 @@ public class Erailsort {
 	    WebElement tostation = driver.findElement(By.id("txtStationTo"));
 	    tostation.clear();
 	    tostation.sendKeys("MS",Keys.TAB);
-	
-	    WebElement checkbox = driver.findElement(By.id("chkSelectDateOnly"));
-	    if(checkbox.isSelected()) {
-	    	checkbox.click();
-	    }else
-	    {
-	    	System.out.println("Element is not selected");
-	    	
-	    }
-	    
+	    driver.findElement(By.xpath("//label[text()='Sort on Date']")).click();
+	    driver.findElement(By.id("buttonFromTo")).click();
+	    Thread.sleep(1000);
 	//store the trainname in list
 	      List<String> Trainname=new ArrayList<String>();
 	      List<WebElement> table = driver.findElements(By.xpath("//table[@class='DataTable TrainList TrainListHeader']/tbody/tr/td[2]"));
